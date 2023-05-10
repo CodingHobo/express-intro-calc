@@ -8,13 +8,15 @@ function convertStrNums(strNums) {
   // if the conversion isn't successful, throw a BadRequestError and will
   // be handled in your route
   let converted = [];
+  if (!(strNums.length)) {
+    throw new BadRequestError("Numbers are required");
+  }
 
   for (let val of strNums.split(',')) {
-    val = Number(val);
-    if (val === NaN) {
+    if (isNaN(Number(val))) {
       throw new BadRequestError(`${val} is not a number`);
     } else {
-      converted.push(val);
+      converted.push(Number(val));
     }
   }
   return converted;
